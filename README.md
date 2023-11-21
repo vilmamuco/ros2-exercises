@@ -26,6 +26,12 @@ You can download the image from [here][vm-image].
 Beware that this is a large file (about 8 GB) and may take a while to download.
 You will of course also have to install VirtualBox on your machine.
 Head to the [VirtualBox website][virtualbox] to download the installer for your operating system, or install it from your package manager.
+You can then import the downloaded image into VirtualBox in the menu `File -> Import Appliance`.
+
+Once the machine starts up, log in with the ubuntu user and the password `ubuntu`.
+You will probably set the keyboard layout to your liking since you will be doing some typing.
+Alternatively, you can set up a shared folder between your host machine and the virtual machine, and edit the files on your host machine.
+Either way, you will execute the commands in the terminal of the virtual machine.
 
 [vm-image]: https://muchmuch.coffee/ROS2.ova
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads

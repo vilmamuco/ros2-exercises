@@ -118,7 +118,7 @@ For the sake of exercise, we'll launch both nodes manually, without using a laun
 Open two terminals side by side, and in each, source the workspace:
 
 ```terminal
-cd ~/ros2_ws/
+cd ~/ros2_ws/src
 source install/setup.bash
 ```
 
@@ -137,7 +137,7 @@ ros2 run p_controller controller_subscriber
 ```
 
 This should print the messages that the publisher is sending to the console.
-You can stop the nodes with `Ctrl+C`.
+You can stop the nodes by hitting `Ctrl+C` on the keyboard.
 
 ## Launching both nodes with a launch file
 
@@ -155,7 +155,7 @@ Make sure that the two use the same `namespace` argument, so that they can find 
 Once this file is saved, you should be able to launch it from the workspace root:
 
 ```terminal
-cd ~/ros2_ws/
+cd ~/ros2_ws/src
 ros2 launch p_controller/launch/circle_path_launch.py
 ```
 
