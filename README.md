@@ -36,9 +36,68 @@ Either way, you will execute the commands in the terminal of the virtual machine
 [vm-image]: https://muchmuch.coffee/ROS2.ova
 [virtualbox]: https://www.virtualbox.org/wiki/Downloads
 
-### Using a prepared Docker image and docker-compose
+### Using a prepared Docker image
 
-TODO
+First, you will have to have Docker installed on your machine.
+Build the docker container with the following command:
+
+```terminal
+docker build -t ros2_course .
+```
+
+This creates a docker image called `ros2_course`.
+We can now launch a container using this image with the following command:
+
+```terminal
+docker run --name=ros2_ws -it  \
+            -v /tmp/.X11-unix:/tmp/.X11-unix \
+            -v /mnt/wslg:/mnt/wslg \
+            -e DISPLAY \
+            -e WAYLAND_DISPLAY \
+            -e XDG_RUNTIME_DIR \
+            -e PULSE_SERVER \
+            -v $(pwd):/home/ubuntu/ros2_ws \
+            ros2_course
+```
+
+This will create a docker _container_ called `ros2_ws` and start it.
+The many `-v` and `-e` options are necessary to get the GUI tools to work from inside the container.
+The last `-v` option mounts the current directory into the container, so that you can edit the files on your host machine:
+
+```terminal
+ls -1
+slides
+Dockerfile
+Exercise 1.md
+README.md
+```
+
+Once you exit the shell (by typing `exit` or pressing `Ctrl-D`), the container will stop.
+You can now see it in its stopped mode by running `docker ps -a`: 
+
+```terminal
+CONTAINER ID   IMAGE                                             COMMAND                  CREATED              STATUS                        PORTS                                                                  NAMES
+0df1bef039ff   ros2_course                                       "/ros_entrypoint.sh …"   About a minute ago   Exited (130) 11 seconds ago                                                                          ros2_ws
+```
+
+To start the container again, run `docker start ros2_ws`.
+Converseley, you can stop it with `docker stop ros2_ws`.
+
+To run multiple terminals inside the container, you can use the `docker exec` command:
+
+```terminal
+docker exec -it ros2_ws bash
+```
+
+This should let you run the exercises as described below.
+You can verify that the basic setup works by starting the turtlesim:
+
+```terminal
+ros2 run turtlesim turtlesim_node
+```
+
+Of course, the turtle is not getting any commands, so it won't move.
+But if you can see the turtle window, the setup works.
 
 ## Exercises
 
