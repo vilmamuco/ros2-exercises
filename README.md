@@ -104,6 +104,14 @@ ros2 run turtlesim turtlesim_node
 Of course, the turtle is not getting any commands, so it won't move.
 But if you can see the turtle window, the setup works.
 
+As always, don't forget to source your own workspace:
+
+```terminal
+source install/setup.bash
+```
+
+The global ros2 workspace (the "underlay") is already sourced for you inside the Dockerfile.
+
 ## Exercises
 
 Follow the individual exercise instructions:
