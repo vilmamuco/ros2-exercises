@@ -42,10 +42,14 @@ First, you will have to have Docker installed on your machine.
 Build the docker container with the following command:
 
 ```terminal
-docker build -t ros2_course .
+docker build \
+    --build-arg UID=$(id -u) \
+    --build-arg GID=$(id -g) \
+    -t ros2_course .
 ```
 
 This creates a docker image called `ros2_course`.
+The `UID` and `GID` arguments are necessary so that your host folder will be mounted with the correct access rights in the next step.
 We can now launch a container using this image with the following command:
 
 ```terminal
@@ -82,6 +86,7 @@ CONTAINER ID   IMAGE                                             COMMAND        
 
 To start the container again, run `docker start ros2_ws`.
 Converseley, you can stop it with `docker stop ros2_ws`.
+If you want to re-create the container from scratch, you can remove it with `docker rm ros2_ws`.
 
 To run multiple terminals inside the container, you can use the `docker exec` command:
 
