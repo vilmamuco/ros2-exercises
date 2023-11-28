@@ -25,7 +25,11 @@ ENV NVIDIA_DRIVER_CAPABILITIES \
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN useradd --user-group --system --create-home --no-log-init ubuntu
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID -o ubuntu
+
+RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
 # set password of ubuntu to "ubuntu"
 RUN echo "ubuntu:ubuntu" | chpasswd && \
     usermod -aG sudo ubuntu && \
