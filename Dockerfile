@@ -23,9 +23,6 @@ ENV NVIDIA_VISIBLE_DEVICES \
 ENV NVIDIA_DRIVER_CAPABILITIES \
   ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
-VOLUME "/workspace"
-# COPY . "/workspace"
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN useradd --user-group --system --create-home --no-log-init ubuntu
