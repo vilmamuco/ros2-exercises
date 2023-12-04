@@ -9,11 +9,12 @@ The exercise is divided into two parts. The first part is a tutorial that will g
 ## Sostware requirements
 
 - ubuntu 22.04
-- Python 3
 - Docker
 - Git
 
 ## How to install the programs needed for the exercise directly on your computer
+
+It is recommended to use the docker installation method described in the next section. If however you want to install the programs directly on your computer, then follow these instructions:
 
 1. Install S.I.T.L. (Software In The Loop). This is a simulatator for running ArduSub. Follow the instructions in the following link:https://ardupilot.org/dev/docs/building-setup-linux.html#building-setup-linux
 
@@ -34,17 +35,19 @@ The exercise is divided into two parts. The first part is a tutorial that will g
 Detailed instructions at https://discuss.bluerobotics.com/t/setting-up-a-simulation-environment/2892/2?page=2
 
 
-## How to run the package
+## How to run the package using Docker
 
-1. Install the software requirements
-2. Clone the repository
-3. Run the following command in the root of the repository
+1. Clone the repository
+   ```
+   git clone https://github.com/vilmamuco/ros2-exercises.git
+   cd ros2-exercises/src/exercise3/
+   ```
+2. Run the following command in the exercise3 directory
 
    ```
    docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) -t ros2_course .
    ```
-
-4. Open a new terminal and run the following command
+3. Open a new terminal and run the following command
    If you are using an nvidia GPU run the following command:
 
    ```
@@ -79,28 +82,41 @@ Detailed instructions at https://discuss.bluerobotics.com/t/setting-up-a-simulat
        ros2_course
    ```
 
-5. To run gazebo:
+## Running the exercise inside the Docker container
 
+Once the container is running, you will need to run four components inside this single container: Gazebo, ArduSub, Mavros and the ROS2 node controlling the robot.
+There are two different ways of doing so: using a launch file or manually.
+
+### How to run everything in two terminals, using a launch file
+
+
+1. Run gazebo
+   Keep the terminal running the docker container open, and execute these commands within:
    ```
    cd /home/docker/bluerov_ros_playground/
    source /home/docker/freebuoyancy_gazebo/gazebo.sh
    source gazebo.sh
    gazebo ./worlds/underwater.world
    ```
-6. To run the BlueROV2 and ArduSub and Mavros2 in a new terminal:
-```
-docker exec -it ros2_ws bash
-cd /home/ubuntu/ros2_ws/
-source /opt/ros/iron/setup.bash
-source install/setup.bash
-colcon build --symlink-install --packages-select exercise3
-```
-ros2 launch ./exercise3/launch/bringup_blueROV2.py
-```
+2. Attach a second shell to the container
+   Open a new terminal window and start a new shell inside the same docker container:
+   ```
+   docker exec -it ros2_ws bash
+   ```
+3. Run the BlueROV2, ArduSub and Mavros2
+   In the new shell, run the prepared launch file:
+   ```
+   cd /home/ubuntu/ros2_ws/
+   source /opt/ros/iron/setup.bash
+   source install/setup.bash
+   colcon build --symlink-install --packages-select exercise3
+   ros2 launch ./exercise3/launch/bringup_blueROV2.py
+   ```
 
 ## How to run everything in four terminals, manually
 
-Run all these commands in the same docker container.
+If you want finer control over which parts are running at any given moment, you can run each component in a separate terminal.
+As above, you want to execute these all inside the same container, so you will need to attach a new shell to the running container for each of these steps using `docker exec -it ros2_ws bash`.
 
 1. Launch Gazebo:
 
@@ -114,10 +130,10 @@ Run all these commands in the same docker container.
 2. Launch ArduSub:
 
    ```
-    ~/ardupilot/Tools/autotest/sim_vehicle.py -f gazebo-bluerov2 -L RATBeach --console -v ArduSub
+   ~/ardupilot/Tools/autotest/sim_vehicle.py -f gazebo-bluerov2 -L RATBeach --console -v ArduSub
    ```
 
-3. Launch Mavros2:
+3. Launch Mavros:
 
    ```
    # source iron underlay
