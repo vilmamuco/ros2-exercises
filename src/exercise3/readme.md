@@ -2,6 +2,10 @@
 
 The goal of this exercise is to provide a more realistic scenario of using ROS with underwater vehicles. We are going to simulate the BlueROV2 in a Gazebo environment and control it using ROS. The BlueROV2 is also equipped with a depth sensor. The depth sensor is used to measure the depth of the BlueROV2.
 
+
+
+![Gazebo](./runningGazebo.png)
+
 ## Exercise
 
 The exercise is divided into two parts. The first part is a tutorial that will guide you through the process of setting up the BlueROV2 simulated environment and running a simple ROS node. The second part is an exercise that will require you to write a ROS node that will control the BlueROV2.
