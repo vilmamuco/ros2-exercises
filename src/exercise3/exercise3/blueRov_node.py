@@ -5,6 +5,7 @@ from mavros_msgs.msg import State
 from mavros_msgs.srv import CommandBool
 from mavros_msgs.srv import SetMode
 from geometry_msgs.msg import PoseStamped
+from sensor_msgs.msg import Range
 import threading
 
 
@@ -25,9 +26,9 @@ class BlueRovInterface(Node):
             'mavros/local_position/pose',
             self.local_pos_cb,
             local_position_sub_qos)
-
-        self.override_timer = None
-
+        # add subscriber for range
+        self.min_range = 0.0
+        self.range_sub = self.create_subscription(Range, '/sonar/range', self.range_cb, 10)
 
     def status_cb(self, msg):
         self.status = msg
@@ -101,6 +102,13 @@ class BlueRovInterface(Node):
             pose.pose.position.x) <= delta and abs(
             self.local_pos.pose.position.y -
             pose.pose.position.y) <= delta
+    
+    def range_cb(self, msg):
+        # find minumun range
+        test = msg.range
+        test2 = self.min_range
+        if msg.range > 0 and (msg.range < self.min_range or self.min_range == 0):
+            self.min_range = msg.range
 
 
 def mission(ardusub):
@@ -125,7 +133,6 @@ def mission(ardusub):
 
     print("Mission completed")
 
-
 def main(args=None):
     rclpy.init(args=args)
 
@@ -139,7 +146,7 @@ def main(args=None):
     mission(ardusub)
 
     rate = ardusub.create_rate(2)
-    goal_pose = ardusub.pose_stamped(5.0, 0.0, -2.0, ardusub.local_pos.pose.orientation.x,
+    goal_pose = ardusub.pose_stamped(-7.0, 9.0, -2.0, ardusub.local_pos.pose.orientation.x,
                                      ardusub.local_pos.pose.orientation.y, ardusub.local_pos.pose.orientation.z, ardusub.local_pos.pose.orientation.w)
     ardusub.setpoint_position_local_pose(goal_pose)
 
@@ -151,6 +158,7 @@ def main(args=None):
                     ardusub.arm_motors(False)
                     rate.sleep()
                 break
+        print(ardusub.min_range)
     except KeyboardInterrupt:
         pass
     # Destroy the node explicitly
