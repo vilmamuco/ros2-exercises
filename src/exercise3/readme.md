@@ -100,6 +100,7 @@ There are two different ways of doing so: using a launch file or manually.
    cd /home/docker/bluerov_ros_playground/
    source /home/docker/freebuoyancy_gazebo/gazebo.sh
    source gazebo.sh
+   source /opt/ros/iron/setup.bash
    gazebo ./worlds/underwater.world
    ```
 2. Attach a second shell to the container
@@ -128,6 +129,7 @@ As above, you want to execute these all inside the same container, so you will n
    cd /home/docker/bluerov_ros_playground/
    source /home/docker/freebuoyancy_gazebo/gazebo.sh
    source gazebo.sh
+   source /opt/ros/iron/setup.bash
    gazebo ./worlds/underwater.world
    ```
 
