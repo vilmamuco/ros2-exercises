@@ -88,7 +88,7 @@ Detailed instructions at https://discuss.bluerobotics.com/t/setting-up-a-simulat
 
 ## Running the exercise inside the Docker container
 
-Once the container is running, you will need to run four components inside this single container: Gazebo, ArduSub, Mavros and the ROS2 node controlling the robot.
+Once the container is running, you will need to run four components inside this single container: Gazebo, ArduSub, Mavros and the ROS 2 node controlling the robot.
 There are two different ways of doing so: using a launch file or manually.
 
 ### How to run everything in two terminals, using a launch file
@@ -147,7 +147,7 @@ As above, you want to execute these all inside the same container, so you will n
    ros2 launch mavros apm.launch     fcu_url:=udp://0.0.0.0:14550@:14549/?ids=255,240     gcs_url:=udp://@
    ```
 
-4. Launch the ROS2 node controlling the robot:
+4. Launch the ROS.2 node controlling the robot:
 
    ```
    # cd to ubuntu home directory
