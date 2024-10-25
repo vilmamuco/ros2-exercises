@@ -56,10 +56,21 @@ This is of course only necessary when using docker.
 To run the container but keep your code between runs, we'll have to create a folder on your host machine that will be mounted into the container:
 
 ```terminal
+# create a workspace folder on your host machine
 mkdir -p ~/ros2_ws
 # save this path for later
 export ROS2_WS_PATH=~/ros2_ws
 ```
+
+Since we'll run graphical user interface (GUI) applications inside Docker, we need to prepare the
+host machine to allow the container to access the host's X server.
+For a linux machine running X11, this is usually as simple as running:
+
+```terminal
+xhost +local:root
+```
+
+This has to be done every time you restart your machine or log out.
 
 Next we'll have to start the container.
 
