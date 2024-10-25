@@ -40,9 +40,9 @@ USER ubuntu
 RUN mkdir /home/ubuntu/ros2_ws
 WORKDIR "/home/ubuntu/ros2_ws"
 
-# source the workspace activation script
 SHELL ["/bin/bash", "-c"]    # tells docker to use the bash shell
 
+# source the workspace activation script
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/ubuntu/.bashrc
 
 VOLUME "/home/ubuntu/ros2_ws"
