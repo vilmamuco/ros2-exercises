@@ -27,7 +27,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ARG UID=1000
 ARG GID=1000
-RUN groupadd -g $GID -o ubuntu
+RUN groupadd -g $GID ubuntu
 
 RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
 # set password of ubuntu to "ubuntu"
