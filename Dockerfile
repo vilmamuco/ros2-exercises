@@ -51,4 +51,6 @@ SHELL ["/bin/bash", "-c"]    # tells docker to use the bash shell
 # source the workspace activation script
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/ubuntu/.bashrc
 
+# expose our workspace to the host, so that we can keep our code outside of the
+# container
 VOLUME "/home/ubuntu/ros2_ws"
