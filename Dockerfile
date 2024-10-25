@@ -13,15 +13,15 @@ RUN \
     --mount=type=cache,target=/var/lib/apt/lists \
     # holds the package _contents_ (used for apt install)
     --mount=type=cache,target=/var/cache/apt/archives \
-  apt update && \
-  apt install -y --no-install-recommends \
+    apt update && \
+    apt install -y --no-install-recommends \
     ros-jazzy-turtlesim
 
 # for nvidia graphics. comment out if this causes issues for you
 ENV NVIDIA_VISIBLE_DEVICES \
-  ${NVIDIA_VISIBLE_DEVICES:-all}
+    ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
-  ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 ENV DEBIAN_FRONTEND=noninteractive
 
