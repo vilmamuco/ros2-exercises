@@ -1,4 +1,4 @@
-FROM ros:iron-ros-base
+FROM ros:jazzy-ros-base
 
 # not expecting a cache mechanism like the one in buildx, the base image includes
 # this config file that essentially purges the cache on every install operation
@@ -26,7 +26,7 @@ RUN \
   wget \
   sudo \
   gazebo \
-  ros-iron-mavros ros-iron-mavros-extras ros-iron-mavros-msgs
+  ros-jazzy-mavros ros-jazzy-mavros-extras ros-jazzy-mavros-msgs
 
 ENV NVIDIA_VISIBLE_DEVICES \
   ${NVIDIA_VISIBLE_DEVICES:-all}
@@ -68,7 +68,7 @@ RUN ["/bin/bash","-c","source gazebo.sh "]
 RUN /bin/bash -c "sudo apt update"
 RUN /bin/bash -c "sudo apt install liburdfdom-dev -y"
 RUN ["/bin/bash","-c","mkdir build"]
-RUN ["/bin/bash","-c","sudo apt update && sudo apt install ros-iron-gazebo-ros-pkgs -y"]
+RUN ["/bin/bash","-c","sudo apt update && sudo apt install ros-jazzy-gazebo-ros-pkgs -y"]
 WORKDIR /home/docker/freebuoyancy_gazebo/build/
 RUN ["/bin/bash","-c"," cmake .. && make"]
 RUN ["/bin/bash","-c","sudo make install"]

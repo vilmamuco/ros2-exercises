@@ -10,13 +10,13 @@ Depending on your development machine, this can be done in various ways.
 
 ### On your development machine: installing ROS2 directly
 
-If you are running Ubuntu 22.04 (Jammy Jellyfish) or RHEL 9, you can install ROS2 Iron according to the [official instructions][ros2-install]. Note that these installation instructions _may or may not_ work on other Debian and Debian-based distributions, as well as Fedora, but may require some additional steps or adjustments. Ubuntu 22.04 is the recommended distribution for this course.
+If you are running Ubuntu 24.04 (Noble Numbat) or RHEL 9, you can install ROS2 Jazzy according to the [official instructions][ros2-install]. Note that these installation instructions _may or may not_ work on other Debian and Debian-based distributions, as well as Fedora, but may require some additional steps or adjustments. Ubuntu 22.04 is the recommended distribution for this course.
 
 If you're running on Windows, the official instructions may work for you, but it may be easier to just run an Ubuntu 22.04 virtual machine. The performance impact of running ROS2 in a VM is negligible for the contents of these exercises.
 
 If you're running MacOS, the best way is indeed to run an Ubuntu 22.04 virtual machine, especially when using the newer M1/M2 based Macs.
 
-[ros2-install]: https://docs.ros.org/en/iron/Installation.html
+[ros2-install]: https://docs.ros.org/en/jazzy/Installation.html
 
 If you run ROS2 on your development machine, you can skip the next section and go straight to the exercises.
 Make sure to adjust the workspace path (`/home/ubuntu/ros2_ws`) in the exercise instructions to match your setup.

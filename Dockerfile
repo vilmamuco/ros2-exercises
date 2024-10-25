@@ -1,4 +1,4 @@
-FROM ros:iron-ros-base
+FROM ros:jazzy-ros-base
 
 # not expecting a cache mechanism like the one in buildx, the base image includes
 # this config file that essentially purges the cache on every install operation
@@ -15,7 +15,7 @@ RUN \
     --mount=type=cache,target=/var/cache/apt/archives \
   apt update && \
   apt install -y --no-install-recommends \
-    ros-iron-turtlesim
+    ros-jazzy-turtlesim
 
 # for nvidia graphics. comment out if this causes issues for you
 ENV NVIDIA_VISIBLE_DEVICES \
@@ -43,6 +43,6 @@ WORKDIR "/home/ubuntu/ros2_ws"
 # source the workspace activation script
 SHELL ["/bin/bash", "-c"]    # tells docker to use the bash shell
 
-RUN echo "source /opt/ros/iron/setup.bash" >> /home/ubuntu/.bashrc
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/ubuntu/.bashrc
 
 VOLUME "/home/ubuntu/ros2_ws"

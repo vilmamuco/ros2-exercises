@@ -22,7 +22,7 @@ It is recommended to use the docker installation method described in the next se
 
 1. Install S.I.T.L. (Software In The Loop). This is a simulatator for running ArduSub. Follow the instructions in the following link:https://ardupilot.org/dev/docs/building-setup-linux.html#building-setup-linux
 
-2. Install ROS 2 Iron. Follow the instructions in the following link: https://docs.ros.org/en/iron/Installation/Ubuntu-Install-Debians.html
+2. Install ROS 2 Jazzy. Follow the instructions in the following link: https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debians.html
 
 3. Install Gazebo 11. Follow the instructions in the following link: http://gazebosim.org/tutorials?tut=install_ubuntu&cat=install
 
@@ -68,7 +68,7 @@ Detailed instructions at https://discuss.bluerobotics.com/t/setting-up-a-simulat
        --gpus all \
        ros2_course
    ```
-       
+
    If using **AMD GPU** replace the `--gpus all` flag with this `--device=/dev/dri`:
 
    ```
@@ -100,7 +100,7 @@ There are two different ways of doing so: using a launch file or manually.
    cd /home/docker/bluerov_ros_playground/
    source /home/docker/freebuoyancy_gazebo/gazebo.sh
    source gazebo.sh
-   source /opt/ros/iron/setup.bash
+   source /opt/ros/jazzy/setup.bash
    gazebo ./worlds/underwater.world
    ```
 2. Attach a second shell to the container
@@ -112,7 +112,7 @@ There are two different ways of doing so: using a launch file or manually.
    In the new shell, run the prepared launch file:
    ```
    cd /home/ubuntu/ros2_ws/
-   source /opt/ros/iron/setup.bash
+   source /opt/ros/jazzy/setup.bash
    source install/setup.bash
    colcon build --symlink-install --packages-select exercise3
    ros2 launch ./exercise3/launch/bringup_blueROV2.py
@@ -129,7 +129,7 @@ As above, you want to execute these all inside the same container, so you will n
    cd /home/docker/bluerov_ros_playground/
    source /home/docker/freebuoyancy_gazebo/gazebo.sh
    source gazebo.sh
-   source /opt/ros/iron/setup.bash
+   source /opt/ros/jazzy/setup.bash
    gazebo ./worlds/underwater.world
    ```
 
@@ -142,8 +142,8 @@ As above, you want to execute these all inside the same container, so you will n
 3. Launch Mavros:
 
    ```
-   # source iron underlay
-   source /opt/ros/iron/setup.bash
+   # source jazzy underlay
+   source /opt/ros/jazzy/setup.bash
    ros2 launch mavros apm.launch     fcu_url:=udp://0.0.0.0:14550@:14549/?ids=255,240     gcs_url:=udp://@
    ```
 
@@ -152,8 +152,8 @@ As above, you want to execute these all inside the same container, so you will n
    ```
    # cd to ubuntu home directory
    cd /home/ubuntu/ros2_ws/
-   # source iron underlay
-   source /opt/ros/iron/setup.bash
+   # source jazzy underlay
+   source /opt/ros/jazzy/setup.bash
    # source workspace
    source install/setup.bash
 
