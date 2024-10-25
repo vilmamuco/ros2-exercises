@@ -27,9 +27,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ARG UID=1000
 ARG GID=1000
-RUN groupadd -g $GID ubuntu
 
-RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
+# FIXME: the official images already have user ubuntu with UID 1000 and GID 1000.
+# Howevew, in the lab, students might have different UID/GID. We previously used
+# the following lines to create a user with the same UID/GID as the host user.
+# However, this is no longer necessary nor possible, as the user ubuntu already
+# exists in the official images. Not sure what to do here.
+# We keep the lines here for reference.
+# RUN groupadd -g $GID ubuntu
+# RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
 # set password of ubuntu to "ubuntu"
 RUN echo "ubuntu:ubuntu" | chpasswd && \
     usermod -aG sudo ubuntu && \
