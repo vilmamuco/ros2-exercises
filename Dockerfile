@@ -9,19 +9,19 @@ FROM ros:jazzy-ros-base
 RUN rm /etc/apt/apt.conf.d/docker-clean
 
 RUN \
-    # holds the package _indexes_ (used for apt update)
-    --mount=type=cache,target=/var/lib/apt/lists \
-    # holds the package _contents_ (used for apt install)
-    --mount=type=cache,target=/var/cache/apt/archives \
-    apt update && \
-    apt install -y --no-install-recommends \
-    ros-jazzy-turtlesim
+  # holds the package _indexes_ (used for apt update)
+  --mount=type=cache,target=/var/lib/apt/lists \
+  # holds the package _contents_ (used for apt install)
+  --mount=type=cache,target=/var/cache/apt/archives \
+  apt update && \
+  apt install -y --no-install-recommends \
+  ros-jazzy-turtlesim ~nros-jazzy-rqt*
 
 # for nvidia graphics. comment out if this causes issues for you
 ENV NVIDIA_VISIBLE_DEVICES \
-    ${NVIDIA_VISIBLE_DEVICES:-all}
+  ${NVIDIA_VISIBLE_DEVICES:-all}
 ENV NVIDIA_DRIVER_CAPABILITIES \
-    ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
+  ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -38,17 +38,17 @@ ARG GID=1000
 # RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
 # set password of ubuntu to "ubuntu"
 RUN echo "ubuntu:ubuntu" | chpasswd && \
-    usermod -aG sudo ubuntu && \
-    echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+  usermod -aG sudo ubuntu && \
+  echo "ubuntu ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 RUN chsh -s /bin/bash ubuntu
 USER ubuntu
 
 RUN mkdir /home/ubuntu/ros2_ws
 WORKDIR "/home/ubuntu/ros2_ws"
 
-SHELL ["/bin/bash", "-c"]    # tells docker to use the bash shell
-
 # source the workspace activation script
+SHELL ["/bin/bash", "-c"]
+
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/ubuntu/.bashrc
 
 # expose our workspace to the host, so that we can keep our code outside of the
