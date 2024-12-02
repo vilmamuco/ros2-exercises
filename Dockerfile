@@ -1,4 +1,4 @@
-FROM ros:jazzy-ros-base
+FROM ros:iron-ros-base
 
 # not expecting a cache mechanism like the one in buildx, the base image includes
 # this config file that essentially purges the cache on every install operation
@@ -15,7 +15,7 @@ RUN \
   --mount=type=cache,target=/var/cache/apt/archives \
   apt update && \
   apt install -y --no-install-recommends \
-  ros-jazzy-turtlesim ~nros-jazzy-rqt*
+  ros-iron-turtlesim  ~nros-iron-rqt*
 
 # for nvidia graphics. comment out if this causes issues for you
 ENV NVIDIA_VISIBLE_DEVICES \
@@ -27,15 +27,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ARG UID=1000
 ARG GID=1000
+RUN groupadd -g $GID -o ubuntu
 
-# FIXME: the official images already have user ubuntu with UID 1000 and GID 1000.
-# Howevew, in the lab, students might have different UID/GID. We previously used
-# the following lines to create a user with the same UID/GID as the host user.
-# However, this is no longer necessary nor possible, as the user ubuntu already
-# exists in the official images. Not sure what to do here.
-# We keep the lines here for reference.
-# RUN groupadd -g $GID ubuntu
-# RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
+RUN useradd -u $UID -g $GID --system --create-home --no-log-init ubuntu
 # set password of ubuntu to "ubuntu"
 RUN echo "ubuntu:ubuntu" | chpasswd && \
   usermod -aG sudo ubuntu && \
@@ -49,8 +43,6 @@ WORKDIR "/home/ubuntu/ros2_ws"
 # source the workspace activation script
 SHELL ["/bin/bash", "-c"]
 
-RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/ubuntu/.bashrc
+RUN echo "source /opt/ros/iron/setup.bash" >> /home/ubuntu/.bashrc
 
-# expose our workspace to the host, so that we can keep our code outside of the
-# container
 VOLUME "/home/ubuntu/ros2_ws"
